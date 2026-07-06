@@ -2,18 +2,20 @@ package calculator
 
 import (
 	"encoding/json"
+	// "log"
 	"net/http"
 )
 
 // CalculatorHandler is a struct that handles calculator requests and responses
-type CalculatorHandler struct {}
+type CalculatorHandler struct{}
+
 // NewCalculatorHandler creates a new instance of CalculatorHandler
 // (* and &) are used to create a pointer to the struct, allowing for efficient memory usage and the ability to modify the struct's fields directly.
 func NewCalculatorHandler() *CalculatorHandler {
 	return &CalculatorHandler{}
 }
 
-func (h *CalculatorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
+func (h *CalculatorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Enable CORS
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
@@ -28,7 +30,7 @@ func (h *CalculatorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		json.NewEncoder(w).Encode(CalculatorResponse{Error: "Method not allowed"})
-		return 
+		return
 	}
 
 	var req CalculatorRequest
@@ -37,6 +39,8 @@ func (h *CalculatorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
 		json.NewEncoder(w).Encode(CalculatorResponse{Error: "Invalid request body"})
 		return
 	}
+
+	// log.Printf("Received request: %+v", req)
 
 	operation, err := GetOperation(req.Operation)
 	if err != nil {
@@ -52,5 +56,5 @@ func (h *CalculatorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	json.NewEncoder(w).Encode(CalculatorResponse{Result: &result})
+	json.NewEncoder(w).Encode(CalculatorResponse{Result: result})
 }
