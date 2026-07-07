@@ -112,7 +112,7 @@ export function Calculator(){
     return (
         <>
         <div
-            className="max-w-xl my-8 mx-auto"
+            className="max-w-80 md:max-w-xl w-full my-8 mx-auto m-4"
         >
             {/* Display area */}
             <div

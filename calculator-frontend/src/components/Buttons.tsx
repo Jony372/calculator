@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 export function Button({ onClick, children, variant = 'number', disabled = false}: ButtonProps){
-    const baseClasses = "px-4 py-2 rounded text-white font-bold transition-colors duration-300 cursor-pointer";
+    const baseClasses = "px-4 py-2 md:py-4 rounded text-white md:text-2xl font-bold transition-colors duration-300 cursor-pointer";
     const variantClasses = {
         number: "bg-blue-500 hover:bg-blue-600",
         operator: "bg-green-500 hover:bg-green-600",

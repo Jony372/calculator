@@ -56,5 +56,5 @@ func (h *CalculatorHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.NewEncoder(w).Encode(CalculatorResponse{Result: result})
+	json.NewEncoder(w).Encode(CalculatorResponse{Result: &result})
 }

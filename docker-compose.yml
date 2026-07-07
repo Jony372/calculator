@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./calculator-backend
+    container_name: calc-backend-prod
+    ports:
+      - "8080:8080"
+    restart: always
+
+  frontend:
+    build: ./calculator-frontend
+    container_name: calc-frontend-prod
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always

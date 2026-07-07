@@ -8,6 +8,6 @@ type CalculatorRequest struct {
 
 type CalculatorResponse struct {
 	// Pointer (*) to prevent omitempty from hiding a valid 0 result
-	Result float64 `json:"result,omitempty"`
+	Result *float64 `json:"result,omitempty"`
 	Error string `json:"error,omitempty"`
 }
