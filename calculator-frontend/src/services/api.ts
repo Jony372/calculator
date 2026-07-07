@@ -12,10 +12,10 @@ export const calculatorService = {
             },
             body: JSON.stringify(payload)
         });
-        if (!response.ok){
-            const errorData = await response.json().catch(() => null);
-            throw new Error(errorData?.error || 'Network response was not ok');
-        }
+        // if (!response.ok){
+        //     const errorData = await response.json().catch(() => null);
+        //     throw new Error(errorData?.error || 'Network response was not ok');
+        // }
         return response.json();
         
     }

@@ -57,10 +57,17 @@ export function Calculator(){
     }
 
     // Handles math operators
-    const handleOperator = async (nextOperator: string) => {
+    const handleOperator = async (nextOperator: string, needsTwoValues: boolean = true) => {
         setError(null);
         const inputValue = parseFloat(display);
-
+        if (!needsTwoValues && numberA === null) {
+            const result = await executeCalculation(inputValue, 0, OPERATOR_MAP[nextOperator]);
+            if(result !== null){
+                setDisplay(String(result));
+                setNumberA(result);
+            }
+            return;
+        }
         if (numberA !== null && operation && !waitingForNewValue) {
             const result = await executeCalculation(numberA, inputValue, operation);
             if(result !== null){
@@ -69,6 +76,7 @@ export function Calculator(){
             }
         } else {
             setNumberA(inputValue);
+            setDisplay('0');
         }
 
         setWaitingForNewValue(true);
@@ -104,7 +112,7 @@ export function Calculator(){
     return (
         <>
         <div
-            className="max-w-80 my-8 mx-auto"
+            className="max-w-xl my-8 mx-auto"
         >
             {/* Display area */}
             <div
@@ -123,7 +131,7 @@ export function Calculator(){
         >
             {/* Row 1 */}
             <Button onClick={handleClear} variant="action" disabled={isLoading}>AC</Button>
-            <Button onClick={() => {}} variant="operator" disabled={isLoading}>±</Button>
+            <Button onClick={() => {handleOperator('√', false)}} variant="operator" disabled={isLoading}>√</Button>
             <Button onClick={() => {handleOperator('%')}} variant="operator" disabled={isLoading}>%</Button>
             <Button onClick={handleBackspace} variant="action" disabled={isLoading}>⌫</Button>
 
